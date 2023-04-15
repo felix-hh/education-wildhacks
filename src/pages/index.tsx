@@ -10,7 +10,7 @@ const Home: NextPage = () => {
           <span className={styles.white_colored}>Test</span>
         </h1>
         <p className={styles.description}>
-          Visit<Link href="/Courses"> link</Link>{" "}
+          Visit<Link href="/courses"> link</Link>{" "}
         </p>
         <div className={styles.longerDescription}>
           <p>test</p>
