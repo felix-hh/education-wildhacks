@@ -52,15 +52,15 @@ const Courses: NextPage<CoursesProps> = (props) => {
           <a>
             <Avatar
               size={256}
-              src="https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=256&h=256&q=80" // Replace this URL with your profile image URL
+              src="https://media.istockphoto.com/id/966521024/photo/student-going-for-the-lecture.jpg?s=612x612&w=0&k=20&c=p3eDUEdSlCLgmkaL1dRyjgTQidkvg_jEf4TQqpJOe2I=" // Replace this URL with your profile image URL
               alt="Profile"
               className="border-r-2 border-blue-200"
             />
           </a>
         </Link>
         <div className="my-auto pr-16 w-96">
-          <p className="text-2xl">Name</p>
-          <p>Email</p>
+          <p className="text-2xl">Ava</p>
+          <p>avacaitlyn@u.northwestern.edu</p>
         </div>
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-fit justify-items-center mx-auto">
