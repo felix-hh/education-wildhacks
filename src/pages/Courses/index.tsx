@@ -65,7 +65,7 @@ const Courses: NextPage<CoursesProps> = (props) => {
         <Row gutter={[24, 24]} justify="center">
           {courses.map((course: Course) => (
             <Col xs={24} sm={12} md={8} lg={6} key={course.id}>
-              <Link href={`/Courses/${course.id}`}>
+              <Link href={`/courses/${course.id}`}>
                 <a>
                   {course.name ? (
                     <Card className={styles.courseCard}>
