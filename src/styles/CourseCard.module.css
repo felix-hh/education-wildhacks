@@ -38,3 +38,13 @@
   font-size: 0.8rem;
   color: #666;
 }
+
+.profileContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.profileImage {
+  border-radius: 50%;
+}

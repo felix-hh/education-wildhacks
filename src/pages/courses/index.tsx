@@ -1,12 +1,8 @@
-import { Card, Col, Row, Select, Space, Table, Collapse } from "antd"
-import { SearchOutlined } from "@ant-design/icons"
+import { Avatar } from "antd"
 import type { NextPage } from "next"
 import { useCallback, useEffect, useState } from "react"
-import { coursesColumnDefinitions } from "../../components/ListCourses/CoursesTableConfig"
 import { listCourses } from "../../services/client/ListCourses"
-import { PAGE_SIZE_LIST_COURSES } from "../../utils/AppConstants"
 
-import { AnswersFromPromptInput } from "../../components/ListCourses/AnswersFromPromptInput"
 import { serverFetchAllCourses } from "../../services/server/ServerFetchAllCourses"
 import { Course } from "../../model/DataModel"
 import styles from "../../styles/CourseCard.module.css"
@@ -34,15 +30,15 @@ const getRandomColorImage = () => {
 
 const Courses: NextPage<CoursesProps> = (props) => {
   const [courses, setCourses] = useState(props.courses)
-  const courseNames = [...props.courses.map((course) => course.name)]
-  const courseCodes = [...props.courses.map((course) => course.id)]
+  // const courseNames = [...props.courses.map((course) => course.name)]
+  // const courseCodes = [...props.courses.map((course) => course.id)]
 
-  const [selectedCourseNames, setSelectedCourseNames] = useState<Set<string>>(
-    new Set()
-  )
-  const [selectedCourseCodes, setSelectedCourseCodes] = useState<Set<string>>(
-    new Set()
-  )
+  // const [selectedCourseNames, setSelectedCourseNames] = useState<Set<string>>(
+  //   new Set()
+  // )
+  // const [selectedCourseCodes, setSelectedCourseCodes] = useState<Set<string>>(
+  //   new Set()
+  // )
 
   const fetchCourses = useCallback(() => {
     const fetchData = async () => {
@@ -57,40 +53,58 @@ const Courses: NextPage<CoursesProps> = (props) => {
       await fetchCourses()
     }
     fetchData()
-  }, [fetchCourses, selectedCourseCodes, selectedCourseNames])
+    // }, [fetchCourses, selectedCourseCodes, selectedCourseNames])
+  }, [fetchCourses])
 
   return (
-      <div className="w-fit xl:w-10/12 xl:mx-auto">
-        <div className="flex flex-row justify-start h-min flex-wrap" >
-          {courses.map((course: Course) => (
-            <div className="">
-              <Link href={`/courses/${course.id}`}>
-                <a>
-                  {course.name ? (
-                    <div className="rounded-lg m-4 w-72 h-72 shadow-lg overflow-clip grid grid-rows-4 grid-flow-col">
-                      <div className="row-span-3">
-                        <img
-                          src={getRandomColorImage()}
-                          alt="Course"
-                          className="h-full object-cover"
-                        />
-                      </div>
-                      <div className="p-2">
-                        <h4 className="text-ellipsis">{course.name.split(" ")[0]}</h4>
-                        <p className="text-ellipsis">{course.name.split(" ").slice(1).join(" ")}</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="rounded-lg m-4 w-72 h-72 shadow-lg overflow-clip grid grid-rows-4 grid-flow-col">
-                      <h4 className="m-auto">No course name available</h4>
-                    </div>
-                  )}
-                </a>
-              </Link>
-            </div>
-          ))}
-        </div>
+    <div className="w-fit xl:w-10/12 xl:mx-auto">
+      <div className={styles.profileContainer}>
+        <Link href="/recommendations">
+          <a>
+            <Avatar
+              size={256}
+              src="https://via.placeholder.com/256" // Replace this URL with your profile image URL
+              alt="Profile"
+              className={styles.profileImage}
+            />
+          </a>
+        </Link>
       </div>
+      <div className="flex flex-row justify-start h-min flex-wrap">
+        {courses.map((course: Course) => (
+          <div className="" key={course.id}>
+            <Link href={`/courses/${course.id}`}>
+              <a>
+                {course.name ? (
+                  <div className="rounded-lg m-4 w-72 h-72 shadow-lg overflow-clip grid grid-rows-4 grid-flow-col">
+                    <div className="row-span-3">
+                      <img
+                        src={getRandomColorImage()}
+                        alt="Course"
+                        className="h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-2">
+                      <h4 className="text-ellipsis">
+                        {course.name.split(" ")[0]}
+                      </h4>
+                      <p className="text-ellipsis">
+                        {course.name.split(" ").slice(1).join(" ")}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="rounded-lg m-4 w-72 h-72 shadow-lg overflow-clip grid grid-rows-4 grid-flow-col">
+                    <h4 className="m-auto">No course name available</h4>
+                  </div>
+                )}
+              </a>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
+
 export default Courses
