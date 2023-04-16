@@ -7,20 +7,19 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          <span className={styles.white_colored}>Test</span>
+          <span className={styles.white_colored}>educAIt</span>
         </h1>
-        <p className={styles.description}>
-          Visit<Link href="/courses"> link</Link>{" "}
-        </p>
         <div className={styles.longerDescription}>
-          <p>test</p>
-          <p>test</p>
+          <p>A smarter way to learn</p>
         </div>
+        <p className={styles.description}>
+          Visit <Link href="/courses">your courses</Link>{" "}
+        </p>
       </main>
 
       <footer className={styles.footer}>
         <a href="http://example.com" target="_blank" rel="noopener noreferrer">
-          Created by test
+          Created by the Sobercups team
         </a>
       </footer>
     </div>

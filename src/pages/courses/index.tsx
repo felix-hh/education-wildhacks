@@ -5,7 +5,6 @@ import { listCourses } from "../../services/client/ListCourses"
 
 import { serverFetchAllCourses } from "../../services/server/ServerFetchAllCourses"
 import { Course } from "../../model/DataModel"
-import styles from "../../styles/CourseCard.module.css"
 import Link from "next/link"
 
 type CoursesProps = {
@@ -30,16 +29,6 @@ const getRandomColorImage = () => {
 
 const Courses: NextPage<CoursesProps> = (props) => {
   const [courses, setCourses] = useState(props.courses)
-  // const courseNames = [...props.courses.map((course) => course.name)]
-  // const courseCodes = [...props.courses.map((course) => course.id)]
-
-  // const [selectedCourseNames, setSelectedCourseNames] = useState<Set<string>>(
-  //   new Set()
-  // )
-  // const [selectedCourseCodes, setSelectedCourseCodes] = useState<Set<string>>(
-  //   new Set()
-  // )
-
   const fetchCourses = useCallback(() => {
     const fetchData = async () => {
       const data = await listCourses()
@@ -59,7 +48,7 @@ const Courses: NextPage<CoursesProps> = (props) => {
   return (
     <div className="w-full">
       <div className="mx-auto max-w-3xl h-fit bg-slate-400 flex flex-row gap-4 m-2 rounded-full shadow-sm border-2 border-blue-200">
-        <Link href="/recommendations">
+        <Link href="/study-plan">
           <a>
             <Avatar
               size={256}
@@ -72,7 +61,6 @@ const Courses: NextPage<CoursesProps> = (props) => {
         <div className="my-auto pr-16 w-96">
           <p className="text-2xl">Name</p>
           <p>Email</p>
-          <p>Canvas Token</p>
         </div>
       </div>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-fit justify-items-center mx-auto">
