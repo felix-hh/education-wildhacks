@@ -9,7 +9,7 @@ export async function serverFetchAllCourses() {
     while (hasMorePages) {
       const response = await canvasAPI.get("/courses/", {
         params: {
-          // enrollment_state: 'active',
+          enrollment_state: "active",
           page: currentPage,
           per_page: 50, // Set the number of items per page (max is 50),
         },
@@ -18,6 +18,7 @@ export async function serverFetchAllCourses() {
       if (response.data.length > 0) {
         // courses = courses.concat(response.data.filter(course => course.enrollment_state === 'active'));
         courses = courses.concat(response.data)
+        //courses = courses.filter(course => course.enrollment_state === 'active');
         currentPage++
       } else {
         hasMorePages = false
