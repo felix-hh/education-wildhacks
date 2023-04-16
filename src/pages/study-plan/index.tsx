@@ -82,7 +82,7 @@ const StudyPlanPage = () => {
         <li>Look at minute 32 of Lecture 10 to learn more about clustered embeddings.</li>
       </ul> */}
       <Table<StudyPlanItem>
-        dataSource={studyPlan}
+        dataSource={studyPlan as any}
         columns={columns}
         pagination={false}
         rowKey="subject"
@@ -108,7 +108,7 @@ const StudyPlanPage = () => {
             moment(item.deadline).isSame(value, "day")
           )
           if (deadline) {
-            showModal(deadline)
+            showModal(deadline as any)
           }
         }}
       />
