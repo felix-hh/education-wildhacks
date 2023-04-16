@@ -1,5 +1,3 @@
-// services/client/getLecture.ts
-
 import axios from "axios"
 
 export async function getFileData(courseId: string, fileName: string) {

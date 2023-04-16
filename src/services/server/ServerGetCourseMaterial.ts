@@ -2,9 +2,10 @@ import path from "path"
 import fs from "fs"
 import { Lecture } from "../../model/DataModel"
 
-export async function getLecture(
+export async function getCourseMaterial(
   courseId: string,
-  lectureName: string
+  file_stem: string,
+  category: string
 ): Promise<Lecture> {
   const filePath = path.join(
     process.cwd(),
@@ -12,8 +13,8 @@ export async function getLecture(
     "database",
     "courses",
     courseId as string,
-    "lectures",
-    `${lectureName}.json`
+    category,
+    `${file_stem}.json`
   )
 
   const lectureText = fs.readFileSync(filePath, "utf-8")

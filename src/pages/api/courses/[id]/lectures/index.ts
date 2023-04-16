@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { listLectures } from "../../../../../services/server/ServerListLectures"
+import { listCourseMaterials } from "../../../../../services/server/ServerListCourseMaterials"
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,7 +13,7 @@ export default async function handler(
       return
     }
 
-    const course = await listLectures(courseId as string)
+    const course = await listCourseMaterials(courseId as string, "lectures")
 
     if (!course) {
       res.status(404).json({ error: "Course not found." })

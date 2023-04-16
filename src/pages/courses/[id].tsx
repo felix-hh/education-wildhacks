@@ -79,12 +79,17 @@ const CoursePage: React.FC = () => {
             </div>
 
             <div className="flex flex-col rounded-lg overflow-clip border-2 p-2 bg-white gap-4">
-              <h3 className="border-spacing border-b-2 pb-1 mb-1">Files</h3>
+              <h3 className="border-spacing border-b-2 pb-1 mb-1">
+                Assignments
+              </h3>
               {/* Add content related to lectures */}
-              {files.map((file) => (
-                <Link href={`/courses/${id}/files/${file}`} key={file}>
+              {assignments.map((assignment) => (
+                <Link
+                  href={`/courses/${id}/assignments/${assignment}`}
+                  key={assignment}
+                >
                   <div className="bg-slate-200 hover:bg-slate-300 p-2 rounded-md flex justify-between">
-                    <p>file</p>
+                    <p>{assignment}</p>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -107,10 +112,10 @@ const CoursePage: React.FC = () => {
             <div className="flex flex-col rounded-lg overflow-clip border-2 p-2 bg-white gap-4">
               <h3 className="border-spacing border-b-2 pb-1 mb-1">Files</h3>
               {/* Add content related to lectures */}
-              {assignments.map((feedback) => (
-                <Link href={`/courses/${id}/files/${feedback}`} key={feedback}>
+              {files.map((file) => (
+                <Link href={`/courses/${id}/files/${file}`} key={file}>
                   <div className="bg-slate-200 hover:bg-slate-300 p-2 rounded-md flex justify-between">
-                    <p>feedback</p>
+                    <p>{file}</p>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

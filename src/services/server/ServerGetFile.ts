@@ -4,7 +4,8 @@ import { File } from "../../model/DataModel"
 
 export async function getFile(
   courseId: string,
-  fileName: string
+  fileName: string,
+  category: string
 ): Promise<File> {
   const filePath = path.join(
     process.cwd(),
@@ -12,7 +13,7 @@ export async function getFile(
     "database",
     "courses",
     courseId as string,
-    "files",
+    category,
     `${fileName}.json`
   )
 

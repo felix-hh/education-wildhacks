@@ -1,30 +1,32 @@
+// pages/courses/[courseId]/lectures/[lecture-name].tsx
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { AnswersFromPromptInput } from "../../../../components/ListCourses/AnswersFromPromptInput"
+import { getLectureData } from "../../../../services/client/GetLecture"
 import { answersFromPrompt } from "../../../../services/client/AnswersFromPrompt"
-import { getFileData } from "../../../../services/client/GetFile"
-import { File } from "../../../../model/DataModel"
+import { Assignment } from "../../../../model/DataModel"
+import { getAssignmentData } from "../../../../services/client/GetAssignment"
 
 const LecturePage = () => {
   const router = useRouter()
-  const { id: courseId, fileName } = router.query
+  const { id: courseId, assignmentName } = router.query
 
-  const [userFiles, setUserFiles] = useState<File | null>(null)
+  const [lecture, setLecture] = useState<Assignment | null>(null)
   const [summary, setSummary] = useState("")
 
   useEffect(() => {
-    if (courseId && fileName) {
+    if (courseId && assignmentName) {
       const fetchLectureData = async () => {
-        const { fileData } = await getFileData(
+        const { assignmentData } = await getAssignmentData(
           courseId as string,
-          fileName as string
+          assignmentName as string
         )
-        setUserFiles(fileData)
-        await fetchLectureSummary(fileData.transcript)
+        setLecture(assignmentData)
+        await fetchLectureSummary(assignmentData.transcript)
       }
       fetchLectureData()
     }
-  }, [courseId, fileName])
+  }, [courseId, assignmentName])
 
   const fetchLectureSummary = async (transcript: string) => {
     const prompt = `Please summarize the following speech-to-text transcript of a lecture. Note that the transcription might have some inaccuracies. Here is the transcript:\n\n${transcript}\n\nSummary: `
@@ -32,19 +34,19 @@ const LecturePage = () => {
     setSummary(apiResponse)
   }
 
-  if (!userFiles) {
+  if (!lecture) {
     return <div>Loading...</div>
   }
 
   return (
     <div className="p-2 mx-auto h-full">
-      <h1>{userFiles.name}</h1>
+      <h1>{lecture.name}</h1>
       <div className="bg-white my-2 p-2 rounded-lg max-w-3xl">
         <p>
-          <strong>Date:</strong> {userFiles.date}
+          <strong>Date:</strong> {lecture.date}
         </p>
         <p>
-          <strong>Transcript:</strong> {userFiles.transcript}
+          <strong>Transcript:</strong> {lecture.transcript}
         </p>
         <br></br>
         <p>
@@ -53,7 +55,7 @@ const LecturePage = () => {
         <p>{summary}</p>
       </div>
       <AnswersFromPromptInput
-        context={`Transcript: ${userFiles.transcript}\n\nSummary: ${summary}\n\nUse the information in the Transcript and Summary sections to answer the query\n\n`}
+        context={`Transcript: ${lecture.transcript}\n\nSummary: ${summary}\n\nUse the information in the Transcript and Summary sections to answer the query\n\n`}
       />
     </div>
   )

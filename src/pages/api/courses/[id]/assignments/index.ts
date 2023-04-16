@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { listAssignments } from "../../../../../services/server/ServerListAssignments"
+import { listCourseMaterials } from "../../../../../services/server/ServerListCourseMaterials"
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,14 +13,14 @@ export default async function handler(
       return
     }
 
-    const assignment = await listAssignments(courseId as string)
+    const course = await listCourseMaterials(courseId as string, "assignments")
 
-    if (!assignment) {
+    if (!course) {
       res.status(404).json({ error: "Course not found." })
       return
     }
 
-    res.status(200).json(assignment)
+    res.status(200).json(course)
   } else {
     res.setHeader("Allow", ["GET"])
     res.status(405).end(`Method ${req.method} Not Allowed`)
