@@ -77,11 +77,11 @@ const Courses: NextPage<CoursesProps> = (props) => {
                         className="h-full object-cover"
                       />
                     </div>
-                    <div className="p-2">
-                      <h4 className="text-ellipsis">
+                    <div className="p-2 w-64">
+                      <h4 className="text-ellipsis whitespace-nowrap overflow-ellipsis overflow-hidden">
                         {course.name.split(" ")[0]}
                       </h4>
-                      <p className="text-ellipsis">
+                      <p className="text-ellipsis whitespace-nowrap overflow-ellipsis overflow-hidden">
                         {course.name.split(" ").slice(1).join(" ")}
                       </p>
                     </div>
