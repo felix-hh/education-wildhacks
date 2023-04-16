@@ -9,6 +9,7 @@ import { PAGE_SIZE_LIST_COURSES } from "../../utils/AppConstants"
 import { AnswersFromPromptInput } from "../../components/ListCourses/AnswersFromPromptInput"
 import { serverFetchAllCourses } from "../../services/server/ServerFetchAllCourses"
 import { Course } from "../../model/DataModel"
+import styles from "../../styles/CourseCard.module.css"
 
 type CoursesProps = {
   courses: Course[]
@@ -23,6 +24,11 @@ export const getStaticProps = async (): Promise<{
       courses,
     },
   }
+}
+
+const getRandomColorImage = () => {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16)
+  return `https://via.placeholder.com/250x166/${randomColor}/${randomColor}`
 }
 
 const Courses: NextPage<CoursesProps> = (props) => {
@@ -56,7 +62,39 @@ const Courses: NextPage<CoursesProps> = (props) => {
     <Row>
       <Space direction="vertical">
         <Space align="center" direction="horizontal" size={[100, 0]}>
-          <Card
+          {/* <Table
+              dataSource={courses}
+              columns={coursesColumnDefinitions}
+              rowKey={"id"} 
+              /> */}
+          <div className="App">
+            <Row gutter={[16, 16]} justify="space-around">
+              {courses.map((course: Course) => (
+                <Col span={8} key={course.id}>
+                  {course.name ? (
+                    <Card className={styles.courseCard}>
+                      <div className={styles.courseCardImage}>
+                        <img
+                          src={getRandomColorImage()}
+                          alt="Course"
+                          style={{ objectFit: "cover" }}
+                        />
+                      </div>
+                      <div className={styles.courseCardHeader}>
+                        <h4>{course.name.split(" ")[0]}</h4>
+                        <p>{course.name.split(" ").slice(1).join(" ")}</p>
+                      </div>
+                    </Card>
+                  ) : (
+                    <Card className={styles.courseCard}>
+                      <p>No course name available</p>
+                    </Card>
+                  )}
+                </Col>
+              ))}
+            </Row>
+          </div>
+          {/* <Card
             title={
               <Space direction="vertical" size={[1, 10]}>
                 <h2>
@@ -125,12 +163,8 @@ const Courses: NextPage<CoursesProps> = (props) => {
             }
             bordered
           >
-            <Table
-              dataSource={courses}
-              columns={coursesColumnDefinitions}
-              rowKey={"id"}
-            />
-          </Card>
+            
+          </Card> */}
         </Space>
       </Space>
     </Row>

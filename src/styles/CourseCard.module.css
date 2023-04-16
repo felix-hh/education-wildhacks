@@ -1,0 +1,36 @@
+.courseCard {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.courseCardImage {
+  width: 100%;
+  height: 166px;
+  object-fit: cover;
+}
+
+.course-card-header h4 {
+  margin-bottom: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.course-card-header p {
+  margin-top: 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.course-card-image {
+  flex: 2;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
