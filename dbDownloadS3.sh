@@ -1,0 +1,1 @@
+aws s3 cp s3://wildhacks2023/courses/ ./src/database/courses/ --recursive
