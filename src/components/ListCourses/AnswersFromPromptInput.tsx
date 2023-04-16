@@ -5,16 +5,21 @@ import { FC } from "react"
 
 const { TextArea } = Input
 
-type AnswersFromPromptInputProps = Record<string, never>
+type AnswersFromPromptInputProps = {
+  context?: string
+}
 
-export const AnswersFromPromptInput: FC<AnswersFromPromptInputProps> = () => {
+export const AnswersFromPromptInput: FC<AnswersFromPromptInputProps> = ({
+  context,
+}) => {
   // Add new state for the query and the fetched answer
   const [query, setQuery] = useState("")
   const [answer, setAnswer] = useState<string[]>([])
 
   // Create a function to handle the submission of the query
   const handleSubmitQuery = async () => {
-    const apiResponse = await answersFromPrompt(query)
+    const fullQuery = context ? `${context}\n\n${query}` : query
+    const apiResponse = await answersFromPrompt(fullQuery)
     const responseText = apiResponse.split("\n")
     setAnswer(responseText)
   }

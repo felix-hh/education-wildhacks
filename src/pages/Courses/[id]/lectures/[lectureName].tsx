@@ -2,6 +2,7 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ChatInterface } from "../../../../components/ChatInterface"
+import { AnswersFromPromptInput } from "../../../../components/ListCourses/AnswersFromPromptInput"
 import { getLectureData } from "../../../../services/client/GetLecture"
 import { Lecture } from "../../../../model/DataModel"
 import { answersFromPrompt } from "../../../../services/client/AnswersFromPrompt"
@@ -18,7 +19,7 @@ const LecturePage = () => {
       const fetchLectureData = async () => {
         const { lecture } = await getLectureData(
           courseId as string,
-          lectureName
+          lectureName as string
         )
         setLecture(lecture)
         await fetchLectureSummary(lecture.transcript)
@@ -43,7 +44,9 @@ const LecturePage = () => {
       <p>Date: {lecture.date}</p>
       <p>Transcript: {lecture.transcript}</p>
       <p>Summary: {summary}</p>
-      <ChatInterface />
+      <AnswersFromPromptInput
+        context={`Transcript: ${lecture.transcript}\n\nSummary: ${summary}\n\nUse the information in the Transcript and Summary sections to answer the query\n\n`}
+      />
     </div>
   )
 }

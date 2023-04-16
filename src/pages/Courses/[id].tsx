@@ -1,8 +1,12 @@
 import { useRouter } from "next/router"
+import fs from "fs"
+import path from "path"
 import { Card, Col, Row, Typography } from "antd"
 import { useEffect, useState } from "react"
 import { Course } from "../../model/DataModel"
 import { getCourseById } from "../../services/client/GetCourse"
+import Link from "next/link"
+import { listLectures } from "../../services/client/ListLectures"
 
 const { Title } = Typography
 
@@ -10,6 +14,7 @@ const CoursePage: React.FC = () => {
   const router = useRouter()
   const { id } = router.query
   const [course, setCourse] = useState<Course | null>(null)
+  const [lectures, setLectures] = useState<string[]>([])
 
   useEffect(() => {
     console.log(id)
@@ -18,7 +23,12 @@ const CoursePage: React.FC = () => {
         const courseData = await getCourseById(id as string)
         setCourse(courseData)
       }
+      const fetchLectures = async () => {
+        const allLectures = await listLectures(id as string)
+        setLectures([...allLectures])
+      }
       fetchCourse()
+      fetchLectures()
     }
   }, [id])
 
@@ -31,6 +41,14 @@ const CoursePage: React.FC = () => {
             <Col span={8}>
               <Card title="Lectures" bordered>
                 {/* Add content related to lectures */}
+                {lectures.map((lecture) => (
+                  <>
+                    <Link href={`/courses/${id}/lectures/${lecture}`}>
+                      {lecture}
+                    </Link>
+                    <br />
+                  </>
+                ))}
               </Card>
             </Col>
             <Col span={8}>
