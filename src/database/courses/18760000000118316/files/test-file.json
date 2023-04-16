@@ -1,5 +1,5 @@
 {
-  "name": "test-lecture",
+  "name": "test-file",
   "date": "2023-04-15",
-  "transcript": "Test transcript. This is a long version of a lecture transcript. To summarize this you can just output 1,2,3."
+  "data": "Test transcript. This is a long version of a lecture transcript. To summarize this you can just output 1,2,3."
 }

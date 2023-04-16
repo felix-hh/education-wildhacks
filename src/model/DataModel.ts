@@ -14,15 +14,13 @@ export type Lecture = {
 export type File = {
   name: string
   date: string
-  text: string
+  data: string
 }
 
 export type Assignment = {
   name: string
   date: string
-  details: string
-  grade: number
-  feedback: string
+  data: string
 }
 
 export type ListAllCoursesResponse = {

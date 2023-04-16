@@ -20,14 +20,14 @@ const LecturePage = () => {
           fileName as string
         )
         setUserFiles(fileData)
-        await fetchLectureSummary(fileData.transcript)
+        await fetchLectureSummary(fileData.data)
       }
       fetchLectureData()
     }
   }, [courseId, fileName])
 
-  const fetchLectureSummary = async (transcript: string) => {
-    const prompt = `Please summarize the following speech-to-text transcript of a lecture. Note that the transcription might have some inaccuracies. Here is the transcript:\n\n${transcript}\n\nSummary: `
+  const fetchLectureSummary = async (data: string) => {
+    const prompt = `Please summarize the following speech-to-text data of a lecture. Note that the dataion might have some inaccuracies. Here is the data:\n\n${data}\n\nSummary: `
     const apiResponse = await answersFromPrompt(prompt)
     setSummary(apiResponse)
   }
@@ -44,7 +44,7 @@ const LecturePage = () => {
           <strong>Date:</strong> {userFiles.date}
         </p>
         <p>
-          <strong>Transcript:</strong> {userFiles.transcript}
+          <strong>Original:</strong> {userFiles.data}
         </p>
         <br></br>
         <p>
@@ -53,7 +53,7 @@ const LecturePage = () => {
         <p>{summary}</p>
       </div>
       <AnswersFromPromptInput
-        context={`Transcript: ${userFiles.transcript}\n\nSummary: ${summary}\n\nUse the information in the Transcript and Summary sections to answer the query\n\n`}
+        context={`Original: ${userFiles.data}\n\nSummary: ${summary}\n\nUse the information in the Original and Summary sections to answer the query\n\n`}
       />
     </div>
   )

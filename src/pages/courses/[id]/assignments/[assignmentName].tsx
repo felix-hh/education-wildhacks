@@ -11,7 +11,7 @@ const LecturePage = () => {
   const router = useRouter()
   const { id: courseId, assignmentName } = router.query
 
-  const [lecture, setLecture] = useState<Assignment | null>(null)
+  const [assignment, setLecture] = useState<Assignment | null>(null)
   const [summary, setSummary] = useState("")
 
   useEffect(() => {
@@ -22,31 +22,31 @@ const LecturePage = () => {
           assignmentName as string
         )
         setLecture(assignmentData)
-        await fetchLectureSummary(assignmentData.transcript)
+        await fetchLectureSummary(assignmentData.data)
       }
       fetchLectureData()
     }
   }, [courseId, assignmentName])
 
-  const fetchLectureSummary = async (transcript: string) => {
-    const prompt = `Please summarize the following speech-to-text transcript of a lecture. Note that the transcription might have some inaccuracies. Here is the transcript:\n\n${transcript}\n\nSummary: `
+  const fetchLectureSummary = async (data: string) => {
+    const prompt = `Please summarize the following speech-to-text transcript of a lecture. Note that the transcription might have some inaccuracies. Here is the transcript:\n\n${data}\n\nSummary: `
     const apiResponse = await answersFromPrompt(prompt)
     setSummary(apiResponse)
   }
 
-  if (!lecture) {
+  if (!assignment) {
     return <div>Loading...</div>
   }
 
   return (
     <div className="p-2 mx-auto h-full">
-      <h1>{lecture.name}</h1>
+      <h1>{assignment.name}</h1>
       <div className="bg-white my-2 p-2 rounded-lg max-w-3xl">
         <p>
-          <strong>Date:</strong> {lecture.date}
+          <strong>Date:</strong> {assignment.date}
         </p>
         <p>
-          <strong>Transcript:</strong> {lecture.transcript}
+          <strong>Original:</strong> {assignment.data}
         </p>
         <br></br>
         <p>
@@ -55,7 +55,7 @@ const LecturePage = () => {
         <p>{summary}</p>
       </div>
       <AnswersFromPromptInput
-        context={`Transcript: ${lecture.transcript}\n\nSummary: ${summary}\n\nUse the information in the Transcript and Summary sections to answer the query\n\n`}
+        context={`Original: ${assignment.data}\n\nSummary: ${summary}\n\nUse the information in the Original and Summary sections to answer the query\n\n`}
       />
     </div>
   )
