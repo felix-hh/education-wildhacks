@@ -1,7 +1,6 @@
 // pages/courses/[courseId]/lectures/[lecture-name].tsx
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { ChatInterface } from "../../../../components/ChatInterface"
 import { AnswersFromPromptInput } from "../../../../components/ListCourses/AnswersFromPromptInput"
 import { getLectureData } from "../../../../services/client/GetLecture"
 import { Lecture } from "../../../../model/DataModel"

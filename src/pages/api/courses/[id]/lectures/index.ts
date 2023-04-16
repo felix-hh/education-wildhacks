@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { fetchCourseFromCanvas } from "../../../services/server/ServerGetCourse"
 import { listLectures } from "../../../../../services/server/ServerListLectures"
 
 export default async function handler(
