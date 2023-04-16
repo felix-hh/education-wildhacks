@@ -25,24 +25,26 @@ export const AnswersFromPromptInput: FC<AnswersFromPromptInputProps> = ({
   }
 
   return (
-    <>
-      <Card>
-        <Space direction="vertical" style={{ width: "100%" }}>
+    <div className="bg-white my-2 p-2 rounded-lg max-w-3xl flex flex-col gap-2 shadow-sm">
+      <div className="flex flex-col gap-2 my-2 p-2 rounded-md border-2">
+          <h3 className="border-spacing border-b-2 pb-1 mb-1">Ask A Question</h3>
           <TextArea
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Get an answer..."
-            autoSize={{ minRows: 2, maxRows: 4 }}
+            className="rounded-md"
           />
-          <Button onClick={handleSubmitQuery} type="primary">
-            Submit Query
+          <Button onClick={handleSubmitQuery} className="w-fit rounded-md bg-sky-500 hover:bg-sky-400">
+            <p className="text-white">Submit Query</p>
           </Button>
-        </Space>
-      </Card>
+      </div>
 
-      <Card title="Answer">
-        {answer.length > 0 ? answer : <p>No answer yet</p>}
-      </Card>
-    </>
+      <div className="flex flex-col gap-2 my-2 p-2 rounded-md border-2">
+        <h4 className="border-spacing border-b-2 pb-1 mb-1">Answer:</h4>
+        <p className="">
+          {answer.length > 0 ? answer : "No answer yet"}
+        </p>
+      </div>
+    </div>
   )
 }

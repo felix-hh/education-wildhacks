@@ -38,11 +38,15 @@ const LecturePage = () => {
   }
 
   return (
-    <div>
+    <div className="p-2 mx-auto h-full">
       <h1>{lecture.name}</h1>
-      <p>Date: {lecture.date}</p>
-      <p>Transcript: {lecture.transcript}</p>
-      <p>Summary: {summary}</p>
+      <div className="bg-white my-2 p-2 rounded-lg max-w-3xl">
+        <p><strong>Date:</strong> {lecture.date}</p>
+        <p><strong>Transcript:</strong> {lecture.transcript}</p>
+        <br></br>
+        <p><strong>Summary:</strong></p>
+        <p>{summary}</p>
+      </div>
       <AnswersFromPromptInput
         context={`Transcript: ${lecture.transcript}\n\nSummary: ${summary}\n\nUse the information in the Transcript and Summary sections to answer the query\n\n`}
       />
