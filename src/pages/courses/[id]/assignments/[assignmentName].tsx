@@ -6,6 +6,7 @@ import { getLectureData } from "../../../../services/client/GetLecture"
 import { answersFromPrompt } from "../../../../services/client/AnswersFromPrompt"
 import { Assignment } from "../../../../model/DataModel"
 import { getAssignmentData } from "../../../../services/client/GetAssignment"
+import { extraContext } from "../../../../database/assignmentContext"
 
 const LecturePage = () => {
   const router = useRouter()
@@ -46,16 +47,11 @@ const LecturePage = () => {
           <strong>Date:</strong> {assignment.date}
         </p>
         <p>
-          <strong>Original:</strong> {assignment.data}
+          <strong>Feedback:</strong> {assignment.data}
         </p>
-        <br></br>
-        <p>
-          <strong>Summary:</strong>
-        </p>
-        <p>{summary}</p>
       </div>
       <AnswersFromPromptInput
-        context={`Original: ${assignment.data}\n\nSummary: ${summary}\n\nUse the information in the Original and Summary sections to answer the query\n\n`}
+        context={`Original: ${assignment.data}\n\nContext: ${extraContext}\n\nUse the information in the Original and Context sections to answer the query\n\n`}
       />
     </div>
   )

@@ -5,6 +5,7 @@ import { AnswersFromPromptInput } from "../../../../components/ListCourses/Answe
 import { getLectureData } from "../../../../services/client/GetLecture"
 import { Lecture } from "../../../../model/DataModel"
 import { answersFromPrompt } from "../../../../services/client/AnswersFromPrompt"
+import { Button } from "antd"
 
 const LecturePage = () => {
   const router = useRouter()
@@ -12,6 +13,12 @@ const LecturePage = () => {
 
   const [lecture, setLecture] = useState<Lecture | null>(null)
   const [summary, setSummary] = useState("")
+
+  const [transcriptExpanded, setTranscriptExpanded] = useState(false)
+
+  const toggleTranscript = () => {
+    setTranscriptExpanded(!transcriptExpanded)
+  }
 
   useEffect(() => {
     if (courseId && lectureName) {
@@ -28,7 +35,7 @@ const LecturePage = () => {
   }, [courseId, lectureName])
 
   const fetchLectureSummary = async (transcript: string) => {
-    const prompt = `Please summarize the following speech-to-text transcript of a lecture. Note that the transcription might have some inaccuracies. Here is the transcript:\n\n${transcript}\n\nSummary: `
+    const prompt = `Please summarize the following speech-to-text transcript of a lecture. Note that the transcription might have some inaccuracies. Here is the transcript:\n\n${transcript}\n\n. Summary: `
     const apiResponse = await answersFromPrompt(prompt)
     setSummary(apiResponse)
   }
@@ -41,10 +48,24 @@ const LecturePage = () => {
     <div className="p-2 mx-auto h-full">
       <h1>{lecture.name}</h1>
       <div className="bg-white my-2 p-2 rounded-lg max-w-3xl">
-        <p><strong>Date:</strong> {lecture.date}</p>
-        <p><strong>Transcript:</strong> {lecture.transcript}</p>
+        <p>
+          <strong>Date:</strong> {lecture.date}
+        </p>
+        <p>
+          <strong>Transcript:</strong>{" "}
+          {transcriptExpanded
+            ? lecture.transcript
+            : `${lecture.transcript.slice(0, 300)} (${Math.floor(
+                lecture.transcript.length / 100
+              )} more lines...)`}
+        </p>
+        <Button type="link" onClick={toggleTranscript}>
+          {transcriptExpanded ? "Collapse Transcript" : "Expand Transcript"}
+        </Button>
         <br></br>
-        <p><strong>Summary:</strong></p>
+        <p>
+          <strong>Summary:</strong>
+        </p>
         <p>{summary}</p>
       </div>
       <AnswersFromPromptInput

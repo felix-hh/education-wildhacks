@@ -24,6 +24,29 @@ export async function serverFetchAllCourses() {
         hasMorePages = false
       }
     }
+    courses = [
+      ...courses.map((course) => {
+        let courseName = course.name
+
+        if (course.id === 18760000000118316) {
+          courseName = "COMP_SCI_449 Deep Learning"
+        }
+        if (course.id === 18760000000189296) {
+          courseName = "PHYSICS_390 Information Theory"
+        }
+
+        return { ...course, name: courseName }
+      }),
+    ]
+
+    courses = [
+      ...courses.filter((course) =>
+        [
+          18760000000118316, 18760000000189296, 18760000000189292,
+          18760000000108550,
+        ].includes(course.id)
+      ),
+    ]
 
     return courses
   } catch (error) {
