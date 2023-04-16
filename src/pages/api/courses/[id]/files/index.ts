@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { listFiles } from "../../../../../services/server/ServerListFiles"
+import { listFiles } from "../../../../../services/server/ServerGetListFiles"
 
 export default async function handler(
   req: NextApiRequest,
