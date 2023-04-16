@@ -60,37 +60,37 @@ const Courses: NextPage<CoursesProps> = (props) => {
   }, [fetchCourses, selectedCourseCodes, selectedCourseNames])
 
   return (
-    <div className={styles.coursesGridContainer}>
-      <div className={styles.coursesGridContainer}>
-        <Row gutter={[24, 24]} justify="center">
+      <div className="w-fit xl:w-10/12 xl:mx-auto">
+        <div className="flex flex-row justify-start h-min flex-wrap" >
           {courses.map((course: Course) => (
-            <Col xs={24} sm={12} md={8} lg={6} key={course.id}>
-              <Link href={`/Courses/${course.id}`}>
+            <div className="">
+              <Link href={`/courses/${course.id}`}>
                 <a>
                   {course.name ? (
-                    <Card className={styles.courseCard}>
-                      <img
-                        src={getRandomColorImage()}
-                        alt="Course"
-                        className={styles.courseCardImage}
-                      />
-                      <div className={styles.courseCardHeader}>
-                        <h4>{course.name.split(" ")[0]}</h4>
-                        <p>{course.name.split(" ").slice(1).join(" ")}</p>
+                    <div className="rounded-lg m-4 w-72 h-72 shadow-lg overflow-clip grid grid-rows-4 grid-flow-col">
+                      <div className="row-span-3">
+                        <img
+                          src={getRandomColorImage()}
+                          alt="Course"
+                          className="h-full object-cover"
+                        />
                       </div>
-                    </Card>
+                      <div className="p-2">
+                        <h4 className="text-ellipsis">{course.name.split(" ")[0]}</h4>
+                        <p className="text-ellipsis">{course.name.split(" ").slice(1).join(" ")}</p>
+                      </div>
+                    </div>
                   ) : (
-                    <Card className={styles.courseCard}>
-                      <p>No course name available</p>
-                    </Card>
+                    <div className="rounded-lg m-4 w-72 h-72 shadow-lg overflow-clip grid grid-rows-4 grid-flow-col">
+                      <h4 className="m-auto">No course name available</h4>
+                    </div>
                   )}
                 </a>
               </Link>
-            </Col>
+            </div>
           ))}
-        </Row>
+        </div>
       </div>
-    </div>
   )
 }
 export default Courses
