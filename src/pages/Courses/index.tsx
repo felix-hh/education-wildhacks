@@ -10,6 +10,7 @@ import { AnswersFromPromptInput } from "../../components/ListCourses/AnswersFrom
 import { serverFetchAllCourses } from "../../services/server/ServerFetchAllCourses"
 import { Course } from "../../model/DataModel"
 import styles from "../../styles/CourseCard.module.css"
+import Link from "next/link"
 
 type CoursesProps = {
   courses: Course[]
@@ -59,27 +60,20 @@ const Courses: NextPage<CoursesProps> = (props) => {
   }, [fetchCourses, selectedCourseCodes, selectedCourseNames])
 
   return (
-    <Row>
-      <Space direction="vertical">
-        <Space align="center" direction="horizontal" size={[100, 0]}>
-          {/* <Table
-              dataSource={courses}
-              columns={coursesColumnDefinitions}
-              rowKey={"id"} 
-              /> */}
-          <div className="App">
-            <Row gutter={[16, 16]} justify="space-around">
-              {courses.map((course: Course) => (
-                <Col span={8} key={course.id}>
+    <div className={styles.coursesGridContainer}>
+      <div className={styles.coursesGridContainer}>
+        <Row gutter={[24, 24]} justify="center">
+          {courses.map((course: Course) => (
+            <Col xs={24} sm={12} md={8} lg={6} key={course.id}>
+              <Link href={`/Courses/${course.id}`}>
+                <a>
                   {course.name ? (
                     <Card className={styles.courseCard}>
-                      <div className={styles.courseCardImage}>
-                        <img
-                          src={getRandomColorImage()}
-                          alt="Course"
-                          style={{ objectFit: "cover" }}
-                        />
-                      </div>
+                      <img
+                        src={getRandomColorImage()}
+                        alt="Course"
+                        className={styles.courseCardImage}
+                      />
                       <div className={styles.courseCardHeader}>
                         <h4>{course.name.split(" ")[0]}</h4>
                         <p>{course.name.split(" ").slice(1).join(" ")}</p>
@@ -90,84 +84,13 @@ const Courses: NextPage<CoursesProps> = (props) => {
                       <p>No course name available</p>
                     </Card>
                   )}
-                </Col>
-              ))}
-            </Row>
-          </div>
-          {/* <Card
-            title={
-              <Space direction="vertical" size={[1, 10]}>
-                <h2>
-                  {`Courses`}
-                  <span className="counter">{` (${courses.length}${
-                    courses.length === PAGE_SIZE_LIST_COURSES ? "+" : ""
-                  })`}</span>{" "}
-                </h2>
-                <Collapse
-                  bordered={false}
-                  expandIconPosition="right"
-                  expandIcon={() => (
-                    <SearchOutlined
-                      style={{ fontSize: "18px", marginRight: "8px" }}
-                    />
-                  )}
-                >
-                  <Collapse.Panel header={<span>Type a question</span>} key="1">
-                    <AnswersFromPromptInput />
-                  </Collapse.Panel>
-                </Collapse>
-                <small>This is the table description</small>
-
-                <Row>
-                  <Col span={12}>
-                    <Select
-                      placeholder="Ask a question"
-                      showSearch
-                      mode="multiple"
-                      style={{ width: "100%" }}
-                      onChange={(value) =>
-                        setSelectedCourseCodes(new Set([...value]))
-                      }
-                    >
-                      {courseCodes
-                        .filter((item) => !selectedCourseCodes.has(item))
-                        .map((item) => (
-                          <Select.Option key={item} value={item}>
-                            {item}
-                          </Select.Option>
-                        ))}
-                    </Select>
-                  </Col>
-
-                  <Col span={12}>
-                    <Select
-                      placeholder="Search courses..."
-                      showSearch
-                      mode="multiple"
-                      style={{ width: "100%" }}
-                      onChange={(value) => {
-                        setSelectedCourseNames(new Set([...value]))
-                      }}
-                    >
-                      {courseNames
-                        .filter((item) => !selectedCourseNames.has(item))
-                        .map((item) => (
-                          <Select.Option key={item} value={item}>
-                            {item}
-                          </Select.Option>
-                        ))}
-                    </Select>
-                  </Col>
-                </Row>
-              </Space>
-            }
-            bordered
-          >
-            
-          </Card> */}
-        </Space>
-      </Space>
-    </Row>
+                </a>
+              </Link>
+            </Col>
+          ))}
+        </Row>
+      </div>
+    </div>
   )
 }
 export default Courses
